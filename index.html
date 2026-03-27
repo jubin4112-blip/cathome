@@ -5,11 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>CATHOME - 고양이의 모든 것</title>
   <style>
-    @font-face {
-      font-family: 'ChironGoRoundTC';
-      src: url('./ref/Chiron_GoRound_TC/ChironGoRoundTC-VariableFont_wght.ttf') format('truetype');
-      font-weight: 100 900;
-    }
+    @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css');
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -34,10 +30,15 @@
     }
 
     body {
-      font-family: 'ChironGoRoundTC', -apple-system, sans-serif;
+      font-family: 'Pretendard', -apple-system, sans-serif;
       color: var(--text);
-      font-size: 16px;
+      font-size: 18px;
       background: #fff;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-family: 'Pretendard', -apple-system, sans-serif;
+      font-weight: 700;
     }
 
     a { text-decoration: none; color: inherit; }
