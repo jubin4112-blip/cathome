@@ -332,9 +332,9 @@
     /* ── CATEGORIES ── */
     .category-section { background: var(--gray50); padding: 36px 0; }
     .category-grid {
-      display: flex;
-      gap: 0;
-      justify-content: center;
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 8px;
     }
     .category-item {
       display: flex;
