@@ -192,10 +192,20 @@
       justify-content: center;
       position: relative;
       overflow: hidden;
+      background-size: cover;
+      background-position: center;
     }
-    .hero-slide:nth-child(1) { background: linear-gradient(120deg, #fff3ea 0%, #ffd8bd 100%); }
-    .hero-slide:nth-child(2) { background: linear-gradient(120deg, #daf1f7 0%, #6dcdf1 40%, #00a8ea 100%); }
-    .hero-slide:nth-child(3) { background: linear-gradient(120deg, #fff8f3 0%, #ffa35f 100%); }
+    .hero-slide::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, rgba(0,0,0,.52) 0%, rgba(0,0,0,.18) 60%, rgba(0,0,0,.05) 100%);
+      z-index: 1;
+    }
+    .hero-slide:nth-child(1) { background-image: url('./img/main-slide-01.jpg'); }
+    .hero-slide:nth-child(2) { background-image: url('./img/main-slide-02.jpg'); background-position: left center; }
+    .hero-slide:nth-child(3) { background-image: url('./img/main-slide-03.jpg'); }
+    .hero-slide:nth-child(4) { background-image: url('./img/main-slide-04.jpg'); }
 
     .slide-content {
       position: relative;
@@ -224,11 +234,12 @@
       font-size: 42px;
       font-weight: 900;
       line-height: 1.2;
-      color: var(--gray900);
+      color: #fff;
       margin-bottom: 12px;
+      text-shadow: 0 2px 8px rgba(0,0,0,.25);
     }
-    .slide-text h2 em { color: var(--primary); font-style: normal; }
-    .slide-text p { font-size: 16px; color: var(--gray600); margin-bottom: 28px; }
+    .slide-text h2 em { color: var(--peach); font-style: normal; }
+    .slide-text p { font-size: 16px; color: rgba(255,255,255,.85); margin-bottom: 28px; text-shadow: 0 1px 4px rgba(0,0,0,.3); }
     .slide-cta {
       display: inline-flex;
       align-items: center;
@@ -245,18 +256,7 @@
     }
     .slide-cta:hover { background: var(--gray900); transform: translateY(-2px); }
 
-    .slide-image {
-      width: 360px;
-      height: 360px;
-      border-radius: 50%;
-      overflow: hidden;
-      background: rgba(255,255,255,.4);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 120px;
-      flex-shrink: 0;
-    }
+    .slide-image { display: none; }
 
     .hero-nav {
       position: absolute;
@@ -737,45 +737,60 @@
     <div class="hero-slide">
       <div class="slide-content">
         <div class="slide-text">
-          <span class="badge">🔥 이달의 특가</span>
-          <h2>우리 고양이를 위한<br/><em>최고의 선택</em></h2>
-          <p>고양이 전문 쇼핑몰 CATHOME에서<br/>최고 품질의 제품을 만나보세요.</p>
+          <span class="badge">✨ 프리미엄 미용용품</span>
+          <h2>우리 고양이를 위한<br/><em>부드러운 그루밍</em></h2>
+          <p>수의사가 추천하는 안전한 브러시로<br/>매일 건강하고 윤기있는 털을 유지하세요.</p>
           <button class="slide-cta">
-            지금 쇼핑하기
+            미용용품 보기
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
           </button>
         </div>
-        <div class="slide-image">🐱</div>
+        <div class="slide-image"></div>
       </div>
     </div>
     <!-- Slide 2 -->
     <div class="hero-slide">
       <div class="slide-content">
         <div class="slide-text">
-          <span class="badge" style="background:var(--secondary);">✨ 신제품 출시</span>
-          <h2>프리미엄 사료<br/><em style="color:var(--secondary);">30% 할인</em> 중</h2>
-          <p>수의사 추천 건강 사료<br/>지금 바로 주문하세요.</p>
+          <span class="badge" style="background:var(--secondary);">🐱 신규 회원 혜택</span>
+          <h2>가입하면<br/><em>5,000원 쿠폰</em> 지급</h2>
+          <p>지금 회원가입하고<br/>다양한 혜택을 누려보세요!</p>
           <button class="slide-cta" style="background:var(--secondary);">
-            할인 상품 보기
+            회원가입하기
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
           </button>
         </div>
-        <div class="slide-image">😺</div>
+        <div class="slide-image"></div>
       </div>
     </div>
     <!-- Slide 3 -->
     <div class="hero-slide">
       <div class="slide-content">
         <div class="slide-text">
-          <span class="badge">🎁 신규 회원 혜택</span>
-          <h2>가입하면<br/><em>5,000원 쿠폰</em> 지급</h2>
-          <p>지금 회원가입하고<br/>다양한 혜택을 누려보세요!</p>
+          <span class="badge">🛏️ 신상품 출시</span>
+          <h2>고양이가 사랑하는<br/><em>프리미엄 침대</em></h2>
+          <p>최고의 편안함을 선사하는<br/>캣홈 시그니처 쿠션 침대</p>
           <button class="slide-cta">
-            회원가입하기
+            침대/방석 보기
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
           </button>
         </div>
-        <div class="slide-image">🐾</div>
+        <div class="slide-image"></div>
+      </div>
+    </div>
+    <!-- Slide 4 -->
+    <div class="hero-slide">
+      <div class="slide-content">
+        <div class="slide-text">
+          <span class="badge">🔥 이달의 핫딜</span>
+          <h2>활기찬 고양이를 위한<br/><em>최고의 선택</em></h2>
+          <p>고양이 전문 쇼핑몰 CATHOME에서<br/>최고 품질의 제품을 만나보세요.</p>
+          <button class="slide-cta">
+            지금 쇼핑하기
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </button>
+        </div>
+        <div class="slide-image"></div>
       </div>
     </div>
   </div>
@@ -785,6 +800,7 @@
     <span class="active" onclick="goSlide(0)"></span>
     <span onclick="goSlide(1)"></span>
     <span onclick="goSlide(2)"></span>
+    <span onclick="goSlide(3)"></span>
   </div>
 </section>
 
@@ -1214,7 +1230,7 @@
 <script>
   /* ── HERO SLIDER ── */
   let currentSlide = 0;
-  const totalSlides = 3;
+  const totalSlides = 4;
   const slider = document.getElementById('heroSlider');
   const dots = document.querySelectorAll('#heroDots span');
 
