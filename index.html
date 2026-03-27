@@ -1,0 +1,1255 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CATHOME - 고양이의 모든 것</title>
+  <style>
+    @font-face {
+      font-family: 'ChironGoRoundTC';
+      src: url('./ref/Chiron_GoRound_TC/ChironGoRoundTC-VariableFont_wght.ttf') format('truetype');
+      font-weight: 100 900;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --primary: #FF6D00;
+      --secondary: #00A8EA;
+      --light-orange: #FFA35F;
+      --peach: #FFD8BD;
+      --sky-blue: #6DCDF1;
+      --light-blue: #DAF1F7;
+      --text: #333333;
+      --gray900: #121212;
+      --gray800: #2E2E2E;
+      --gray700: #484848;
+      --gray600: #6E6E6E;
+      --gray500: #9E9E9E;
+      --gray400: #B0B0B0;
+      --gray300: #E0E0E0;
+      --gray200: #EEEEEE;
+      --gray100: #F5F5F5;
+      --gray50: #FAFAFA;
+    }
+
+    body {
+      font-family: 'ChironGoRoundTC', -apple-system, sans-serif;
+      color: var(--text);
+      font-size: 16px;
+      background: #fff;
+    }
+
+    a { text-decoration: none; color: inherit; }
+    ul { list-style: none; }
+    img { display: block; max-width: 100%; }
+    button { cursor: pointer; font-family: inherit; }
+
+    /* ── UTILITY BAR ── */
+    .util-bar {
+      background: var(--gray100);
+      border-bottom: 1px solid var(--gray300);
+      font-size: 12px;
+      color: var(--gray600);
+    }
+    .util-bar .inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 6px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .util-bar .right a { margin-left: 14px; color: var(--gray600); }
+    .util-bar .right a:hover { color: var(--primary); }
+
+    /* ── HEADER ── */
+    .site-header {
+      background: #fff;
+      border-bottom: 2px solid var(--primary);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 8px rgba(0,0,0,.06);
+    }
+    .header-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 14px 20px;
+      display: flex;
+      align-items: center;
+      gap: 24px;
+    }
+    .logo {
+      font-size: 28px;
+      font-weight: 900;
+      color: var(--primary);
+      letter-spacing: -1px;
+      flex-shrink: 0;
+    }
+    .logo span { color: var(--secondary); }
+
+    .search-bar {
+      flex: 1;
+      display: flex;
+      border: 2px solid var(--primary);
+      border-radius: 24px;
+      overflow: hidden;
+    }
+    .search-bar input {
+      flex: 1;
+      border: none;
+      outline: none;
+      padding: 10px 18px;
+      font-family: inherit;
+      font-size: 14px;
+      color: var(--text);
+    }
+    .search-bar button {
+      background: var(--primary);
+      border: none;
+      padding: 0 20px;
+      color: #fff;
+      font-size: 18px;
+    }
+
+    .header-actions {
+      display: flex;
+      gap: 18px;
+      align-items: center;
+      flex-shrink: 0;
+    }
+    .header-actions .action-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+      background: none;
+      border: none;
+      font-size: 11px;
+      color: var(--gray700);
+      cursor: pointer;
+    }
+    .header-actions .action-btn svg { width: 22px; height: 22px; }
+    .header-actions .action-btn:hover { color: var(--primary); }
+    .header-actions .login-btn {
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      border-radius: 20px;
+      padding: 8px 18px;
+      font-size: 13px;
+      font-weight: 700;
+      font-family: inherit;
+    }
+    .header-actions .login-btn:hover { background: var(--light-orange); }
+
+    /* ── NAVIGATION ── */
+    .gnb {
+      background: #fff;
+      border-bottom: 1px solid var(--gray300);
+    }
+    .gnb-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+      display: flex;
+      align-items: center;
+    }
+    .gnb-inner > a {
+      padding: 14px 20px;
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--gray800);
+      border-bottom: 3px solid transparent;
+      transition: all .2s;
+    }
+    .gnb-inner > a:hover,
+    .gnb-inner > a.active { color: var(--primary); border-bottom-color: var(--primary); }
+    .gnb-inner > a.category-btn {
+      background: var(--primary);
+      color: #fff;
+      border-radius: 0;
+      border-bottom: 3px solid var(--primary);
+      display: flex; align-items: center; gap: 6px;
+    }
+
+    /* ── HERO BANNER ── */
+    .hero {
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(135deg, #fff8f3 0%, #daf1f7 100%);
+    }
+    .hero-slider {
+      display: flex;
+      transition: transform .5s ease;
+    }
+    .hero-slide {
+      min-width: 100%;
+      height: 440px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-slide:nth-child(1) { background: linear-gradient(120deg, #fff3ea 0%, #ffd8bd 100%); }
+    .hero-slide:nth-child(2) { background: linear-gradient(120deg, #daf1f7 0%, #6dcdf1 40%, #00a8ea 100%); }
+    .hero-slide:nth-child(3) { background: linear-gradient(120deg, #fff8f3 0%, #ffa35f 100%); }
+
+    .slide-content {
+      position: relative;
+      z-index: 2;
+      text-align: left;
+      max-width: 1200px;
+      width: 100%;
+      padding: 0 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .slide-text { flex: 1; }
+    .slide-text .badge {
+      display: inline-block;
+      background: var(--primary);
+      color: #fff;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 4px 12px;
+      border-radius: 12px;
+      margin-bottom: 16px;
+      letter-spacing: 1px;
+    }
+    .slide-text h2 {
+      font-size: 42px;
+      font-weight: 900;
+      line-height: 1.2;
+      color: var(--gray900);
+      margin-bottom: 12px;
+    }
+    .slide-text h2 em { color: var(--primary); font-style: normal; }
+    .slide-text p { font-size: 16px; color: var(--gray600); margin-bottom: 28px; }
+    .slide-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--primary);
+      color: #fff;
+      font-size: 15px;
+      font-weight: 700;
+      padding: 12px 28px;
+      border-radius: 28px;
+      border: none;
+      font-family: inherit;
+      transition: all .2s;
+    }
+    .slide-cta:hover { background: var(--gray900); transform: translateY(-2px); }
+
+    .slide-image {
+      width: 360px;
+      height: 360px;
+      border-radius: 50%;
+      overflow: hidden;
+      background: rgba(255,255,255,.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 120px;
+      flex-shrink: 0;
+    }
+
+    .hero-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 10;
+      background: rgba(255,255,255,.8);
+      border: none;
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      font-size: 20px;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,.15);
+      transition: all .2s;
+    }
+    .hero-nav:hover { background: var(--primary); color: #fff; }
+    .hero-prev { left: 20px; }
+    .hero-next { right: 20px; }
+
+    .hero-dots {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex; gap: 8px; z-index: 10;
+    }
+    .hero-dots span {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: rgba(255,255,255,.5);
+      cursor: pointer;
+      transition: all .2s;
+    }
+    .hero-dots span.active { background: var(--primary); width: 24px; border-radius: 4px; }
+
+    /* ── SECTION COMMON ── */
+    .section { padding: 50px 0; }
+    .section-inner { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+    .section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 28px;
+    }
+    .section-title {
+      font-size: 24px;
+      font-weight: 800;
+      color: var(--gray900);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .section-title::before {
+      content: '';
+      display: block;
+      width: 4px; height: 24px;
+      background: var(--primary);
+      border-radius: 2px;
+    }
+    .more-btn {
+      font-size: 13px;
+      color: var(--gray600);
+      background: none;
+      border: 1px solid var(--gray300);
+      padding: 6px 14px;
+      border-radius: 14px;
+      font-family: inherit;
+      display: flex; align-items: center; gap: 4px;
+      transition: all .2s;
+    }
+    .more-btn:hover { border-color: var(--primary); color: var(--primary); }
+
+    /* ── CATEGORIES ── */
+    .category-section { background: var(--gray50); padding: 36px 0; }
+    .category-grid {
+      display: flex;
+      gap: 0;
+      justify-content: center;
+    }
+    .category-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      padding: 16px 20px;
+      cursor: pointer;
+      border-radius: 12px;
+      transition: all .2s;
+      min-width: 110px;
+    }
+    .category-item:hover { background: var(--peach); transform: translateY(-4px); }
+    .category-icon {
+      width: 64px; height: 64px;
+      border-radius: 50%;
+      background: #fff;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 30px;
+      box-shadow: 0 3px 12px rgba(255,109,0,.15);
+      border: 2px solid var(--peach);
+      transition: all .2s;
+    }
+    .category-item:hover .category-icon {
+      background: var(--primary);
+      border-color: var(--primary);
+    }
+    .category-label { font-size: 13px; font-weight: 600; color: var(--gray700); }
+    .category-item:hover .category-label { color: var(--primary); }
+
+    /* ── PRODUCT CARDS ── */
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+    .product-card {
+      background: #fff;
+      border: 1px solid var(--gray200);
+      border-radius: 12px;
+      overflow: hidden;
+      transition: all .25s;
+      cursor: pointer;
+    }
+    .product-card:hover { transform: translateY(-5px); box-shadow: 0 10px 28px rgba(0,0,0,.1); border-color: var(--light-orange); }
+    .product-img {
+      width: 100%;
+      aspect-ratio: 1;
+      background: var(--gray100);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 60px;
+      position: relative;
+      overflow: hidden;
+    }
+    .badge-hot {
+      position: absolute;
+      top: 10px; left: 10px;
+      background: var(--primary);
+      color: #fff;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 6px;
+    }
+    .badge-new {
+      position: absolute;
+      top: 10px; left: 10px;
+      background: var(--secondary);
+      color: #fff;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 6px;
+    }
+    .wish-btn {
+      position: absolute;
+      top: 10px; right: 10px;
+      background: rgba(255,255,255,.85);
+      border: none;
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    .product-info { padding: 14px; }
+    .product-brand { font-size: 11px; color: var(--secondary); font-weight: 700; margin-bottom: 4px; }
+    .product-name { font-size: 14px; font-weight: 600; color: var(--gray800); margin-bottom: 8px; line-height: 1.4; }
+    .product-price { display: flex; align-items: baseline; gap: 6px; }
+    .price-discount { font-size: 16px; font-weight: 900; color: var(--primary); }
+    .price-original { font-size: 12px; color: var(--gray500); text-decoration: line-through; }
+    .price-pct { font-size: 13px; font-weight: 700; color: var(--primary); }
+    .product-rating { margin-top: 6px; font-size: 12px; color: var(--gray600); }
+    .product-rating span { color: #FFC107; }
+
+    /* ── 나눔장터 ── */
+    .sharing-section { background: var(--gray50); }
+    .sharing-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+    .sharing-item {
+      background: #fff;
+      border: 1px solid var(--gray200);
+      border-radius: 10px;
+      padding: 16px;
+      display: flex;
+      gap: 14px;
+      cursor: pointer;
+      transition: all .2s;
+    }
+    .sharing-item:hover { border-color: var(--primary); box-shadow: 0 4px 14px rgba(255,109,0,.08); }
+    .sharing-thumb {
+      width: 72px; height: 72px;
+      border-radius: 8px;
+      background: var(--gray100);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 32px;
+      flex-shrink: 0;
+    }
+    .sharing-content { flex: 1; }
+    .sharing-badge {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 4px;
+      margin-bottom: 6px;
+    }
+    .sharing-badge.free { background: #e8f5e9; color: #2e7d32; }
+    .sharing-badge.used { background: #e3f2fd; color: #1565c0; }
+    .sharing-badge.exchange { background: #fff3e0; color: var(--primary); }
+    .sharing-title { font-size: 14px; font-weight: 600; color: var(--gray800); margin-bottom: 6px; }
+    .sharing-meta { font-size: 12px; color: var(--gray500); display: flex; gap: 10px; }
+    .sharing-location { display: flex; align-items: center; gap: 3px; }
+
+    /* ── 나눔장터 리스트 형태 ── */
+    .sharing-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+    .sharing-list-item {
+      display: flex;
+      align-items: center;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--gray200);
+      gap: 16px;
+      cursor: pointer;
+      transition: background .15s;
+    }
+    .sharing-list-item:last-child { border-bottom: none; }
+    .sharing-list-item:hover { background: var(--gray50); margin: 0 -12px; padding-left: 12px; padding-right: 12px; border-radius: 8px; }
+    .sharing-list-num { font-size: 13px; color: var(--gray500); width: 24px; text-align: center; flex-shrink: 0; }
+    .sharing-list-thumb {
+      width: 56px; height: 56px;
+      border-radius: 8px;
+      background: var(--gray100);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 26px;
+      flex-shrink: 0;
+    }
+    .sharing-list-content { flex: 1; }
+    .sharing-list-title { font-size: 14px; font-weight: 600; color: var(--gray800); margin-bottom: 4px; }
+    .sharing-list-meta { font-size: 12px; color: var(--gray500); display: flex; gap: 12px; }
+    .sharing-list-price { font-size: 15px; font-weight: 800; color: var(--primary); flex-shrink: 0; }
+
+    /* ── 정보 커뮤니티 ── */
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+    .info-card {
+      border-radius: 12px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: all .25s;
+      border: 1px solid var(--gray200);
+    }
+    .info-card:hover { transform: translateY(-4px); box-shadow: 0 10px 28px rgba(0,0,0,.1); }
+    .info-card-img {
+      width: 100%;
+      height: 180px;
+      background: var(--light-blue);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 70px;
+      position: relative;
+    }
+    .info-card:nth-child(2) .info-card-img { background: var(--peach); }
+    .info-card:nth-child(3) .info-card-img { background: var(--sky-blue); }
+    .info-tag {
+      position: absolute;
+      bottom: 12px; left: 12px;
+      background: rgba(0,0,0,.55);
+      color: #fff;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 20px;
+      backdrop-filter: blur(4px);
+    }
+    .info-body { padding: 16px; background: #fff; }
+    .info-title { font-size: 15px; font-weight: 700; color: var(--gray900); margin-bottom: 8px; line-height: 1.4; }
+    .info-desc { font-size: 13px; color: var(--gray600); line-height: 1.6; margin-bottom: 12px; }
+    .info-footer { display: flex; justify-content: space-between; font-size: 12px; color: var(--gray500); }
+
+    /* ── HOT DEAL TIMER ── */
+    .hotdeal-section { background: linear-gradient(135deg, #fff8f3 0%, #fff 100%); }
+    .timer-bar {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 28px;
+      background: var(--primary);
+      color: #fff;
+      padding: 14px 24px;
+      border-radius: 12px;
+    }
+    .timer-bar .timer-label { font-size: 15px; font-weight: 700; flex: 1; }
+    .timer-display { display: flex; align-items: center; gap: 6px; }
+    .timer-unit {
+      background: rgba(0,0,0,.2);
+      color: #fff;
+      font-size: 22px;
+      font-weight: 900;
+      padding: 6px 10px;
+      border-radius: 6px;
+      min-width: 48px;
+      text-align: center;
+    }
+    .timer-sep { font-size: 22px; font-weight: 900; }
+
+    /* ── FOOTER ── */
+    .site-footer {
+      background: var(--gray900);
+      color: #aaa;
+      padding: 50px 0 28px;
+      margin-top: 10px;
+    }
+    .footer-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    .footer-top {
+      display: grid;
+      grid-template-columns: 280px 1fr 1fr 1fr;
+      gap: 40px;
+      padding-bottom: 40px;
+      border-bottom: 1px solid #333;
+    }
+    .footer-logo { font-size: 24px; font-weight: 900; color: var(--primary); margin-bottom: 12px; }
+    .footer-logo span { color: var(--secondary); }
+    .footer-tagline { font-size: 13px; line-height: 1.7; color: #888; margin-bottom: 20px; }
+    .footer-sns { display: flex; gap: 10px; }
+    .sns-btn {
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      background: #2e2e2e;
+      display: flex; align-items: center; justify-content: center;
+      color: #aaa;
+      font-size: 16px;
+      transition: all .2s;
+      border: none;
+      cursor: pointer;
+    }
+    .sns-btn:hover { background: var(--primary); color: #fff; }
+    .footer-col h4 { font-size: 14px; font-weight: 700; color: #fff; margin-bottom: 16px; }
+    .footer-col ul { display: flex; flex-direction: column; gap: 10px; }
+    .footer-col ul li a { font-size: 13px; color: #888; transition: color .2s; }
+    .footer-col ul li a:hover { color: var(--primary); }
+    .footer-bottom {
+      padding-top: 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      color: #555;
+    }
+    .footer-bottom-links { display: flex; gap: 16px; }
+    .footer-bottom-links a { color: #555; }
+    .footer-bottom-links a:hover { color: var(--primary); }
+
+    /* ── FLOATING ── */
+    .float-btns {
+      position: fixed;
+      right: 28px;
+      bottom: 40px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      z-index: 200;
+    }
+    .float-btn {
+      width: 50px; height: 50px;
+      border-radius: 50%;
+      border: none;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 20px;
+      cursor: pointer;
+      box-shadow: 0 4px 14px rgba(0,0,0,.2);
+      transition: all .2s;
+    }
+    .float-btn:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0,0,0,.25); }
+    .float-btn.top { background: var(--gray800); color: #fff; }
+    .float-btn.cart { background: var(--primary); color: #fff; }
+
+    /* ── DIVIDER ── */
+    .bg-gray { background: var(--gray50); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 1024px) {
+      .product-grid { grid-template-columns: repeat(3, 1fr); }
+      .footer-top { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 768px) {
+      .product-grid { grid-template-columns: repeat(2, 1fr); }
+      .info-grid { grid-template-columns: 1fr; }
+      .sharing-grid { grid-template-columns: 1fr; }
+      .hero-slide { height: 280px; }
+      .slide-image { display: none; }
+      .slide-text h2 { font-size: 26px; }
+      .category-grid { flex-wrap: wrap; justify-content: center; }
+      .category-item { min-width: 80px; padding: 12px 10px; }
+      .gnb-inner > a { padding: 12px 12px; font-size: 13px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── UTILITY BAR ── -->
+<div class="util-bar">
+  <div class="inner">
+    <span>고양이의 모든 것, CATHOME에 오신 것을 환영합니다 🐾</span>
+    <div class="right">
+      <a href="#">공지사항</a>
+      <a href="#">고객센터</a>
+      <a href="#">배송조회</a>
+      <a href="#">회원가입</a>
+    </div>
+  </div>
+</div>
+
+<!-- ── HEADER ── -->
+<header class="site-header">
+  <div class="header-inner">
+    <a href="#" class="logo">CAT<span>HOME</span></a>
+    <div class="search-bar">
+      <input type="text" placeholder="고양이 용품을 검색해보세요..." />
+      <button>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="18" height="18">
+          <circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+        </svg>
+      </button>
+    </div>
+    <div class="header-actions">
+      <button class="action-btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+        </svg>
+        찜목록
+      </button>
+      <button class="action-btn" style="position:relative;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/>
+          <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+        </svg>
+        장바구니
+        <span style="position:absolute;top:-4px;right:-4px;background:var(--primary);color:#fff;font-size:10px;font-weight:700;width:16px;height:16px;border-radius:50%;display:flex;align-items:center;justify-content:center;">3</span>
+      </button>
+      <button class="login-btn">로그인</button>
+    </div>
+  </div>
+</header>
+
+<!-- ── NAVIGATION ── -->
+<nav class="gnb">
+  <div class="gnb-inner">
+    <a href="#" class="category-btn active">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+        <line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>
+      </svg>
+      전체 카테고리
+    </a>
+    <a href="#hotdeal" class="active">핫딜</a>
+    <a href="#new">신상품</a>
+    <a href="#sharing">나눔장터</a>
+    <a href="#community">정보 커뮤니티</a>
+    <a href="#">게시판</a>
+    <a href="#">이벤트</a>
+  </div>
+</nav>
+
+<!-- ── HERO BANNER ── -->
+<section class="hero">
+  <div class="hero-slider" id="heroSlider">
+    <!-- Slide 1 -->
+    <div class="hero-slide">
+      <div class="slide-content">
+        <div class="slide-text">
+          <span class="badge">🔥 이달의 특가</span>
+          <h2>우리 고양이를 위한<br/><em>최고의 선택</em></h2>
+          <p>고양이 전문 쇼핑몰 CATHOME에서<br/>최고 품질의 제품을 만나보세요.</p>
+          <button class="slide-cta">
+            지금 쇼핑하기
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </button>
+        </div>
+        <div class="slide-image">🐱</div>
+      </div>
+    </div>
+    <!-- Slide 2 -->
+    <div class="hero-slide">
+      <div class="slide-content">
+        <div class="slide-text">
+          <span class="badge" style="background:var(--secondary);">✨ 신제품 출시</span>
+          <h2>프리미엄 사료<br/><em style="color:var(--secondary);">30% 할인</em> 중</h2>
+          <p>수의사 추천 건강 사료<br/>지금 바로 주문하세요.</p>
+          <button class="slide-cta" style="background:var(--secondary);">
+            할인 상품 보기
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </button>
+        </div>
+        <div class="slide-image">😺</div>
+      </div>
+    </div>
+    <!-- Slide 3 -->
+    <div class="hero-slide">
+      <div class="slide-content">
+        <div class="slide-text">
+          <span class="badge">🎁 신규 회원 혜택</span>
+          <h2>가입하면<br/><em>5,000원 쿠폰</em> 지급</h2>
+          <p>지금 회원가입하고<br/>다양한 혜택을 누려보세요!</p>
+          <button class="slide-cta">
+            회원가입하기
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </button>
+        </div>
+        <div class="slide-image">🐾</div>
+      </div>
+    </div>
+  </div>
+  <button class="hero-nav hero-prev" onclick="slideHero(-1)">&#8249;</button>
+  <button class="hero-nav hero-next" onclick="slideHero(1)">&#8250;</button>
+  <div class="hero-dots" id="heroDots">
+    <span class="active" onclick="goSlide(0)"></span>
+    <span onclick="goSlide(1)"></span>
+    <span onclick="goSlide(2)"></span>
+  </div>
+</section>
+
+<!-- ── CATEGORY ICONS ── -->
+<section class="category-section">
+  <div class="section-inner">
+    <div class="category-grid">
+      <div class="category-item">
+        <div class="category-icon">🍖</div>
+        <span class="category-label">사료</span>
+      </div>
+      <div class="category-item">
+        <div class="category-icon">🐟</div>
+        <span class="category-label">간식</span>
+      </div>
+      <div class="category-item">
+        <div class="category-icon">🪀</div>
+        <span class="category-label">장난감</span>
+      </div>
+      <div class="category-item">
+        <div class="category-icon">🚽</div>
+        <span class="category-label">화장실</span>
+      </div>
+      <div class="category-item">
+        <div class="category-icon">🧳</div>
+        <span class="category-label">캐리어</span>
+      </div>
+      <div class="category-item">
+        <div class="category-icon">👕</div>
+        <span class="category-label">의류</span>
+      </div>
+      <div class="category-item">
+        <div class="category-icon">✂️</div>
+        <span class="category-label">미용</span>
+      </div>
+      <div class="category-item">
+        <div class="category-icon">💊</div>
+        <span class="category-label">건강/영양제</span>
+      </div>
+      <div class="category-item">
+        <div class="category-icon">🛏️</div>
+        <span class="category-label">침대/방석</span>
+      </div>
+      <div class="category-item">
+        <div class="category-icon">🐾</div>
+        <span class="category-label">기타용품</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── HOT DEAL ── -->
+<section class="section hotdeal-section" id="hotdeal">
+  <div class="section-inner">
+    <div class="timer-bar">
+      <span class="timer-label">🔥 오늘의 핫딜 — 한정 수량, 서두르세요!</span>
+      <div class="timer-display">
+        <div class="timer-unit" id="tHour">08</div>
+        <span class="timer-sep">:</span>
+        <div class="timer-unit" id="tMin">34</div>
+        <span class="timer-sep">:</span>
+        <div class="timer-unit" id="tSec">12</div>
+      </div>
+    </div>
+    <div class="section-header">
+      <h2 class="section-title">핫딜</h2>
+      <button class="more-btn">더보기 ›</button>
+    </div>
+    <div class="product-grid">
+      <!-- Product 1 -->
+      <div class="product-card">
+        <div class="product-img">
+          🍖
+          <span class="badge-hot">HOT -35%</span>
+          <button class="wish-btn">🤍</button>
+        </div>
+        <div class="product-info">
+          <div class="product-brand">ROYAL CANIN</div>
+          <div class="product-name">로얄캐닌 인도어 어덜트 고양이 사료 2kg</div>
+          <div class="product-price">
+            <span class="price-pct">35%</span>
+            <span class="price-discount">29,900원</span>
+            <span class="price-original">45,900원</span>
+          </div>
+          <div class="product-rating"><span>★★★★★</span> (128)</div>
+        </div>
+      </div>
+      <!-- Product 2 -->
+      <div class="product-card">
+        <div class="product-img">
+          🐟
+          <span class="badge-hot">HOT -42%</span>
+          <button class="wish-btn">🤍</button>
+        </div>
+        <div class="product-info">
+          <div class="product-brand">CIAO</div>
+          <div class="product-name">챠오 참치 닭가슴살 간식 파우치 20개입</div>
+          <div class="product-price">
+            <span class="price-pct">42%</span>
+            <span class="price-discount">8,900원</span>
+            <span class="price-original">15,400원</span>
+          </div>
+          <div class="product-rating"><span>★★★★☆</span> (256)</div>
+        </div>
+      </div>
+      <!-- Product 3 -->
+      <div class="product-card">
+        <div class="product-img">
+          🪄
+          <span class="badge-hot">HOT -28%</span>
+          <button class="wish-btn">🤍</button>
+        </div>
+        <div class="product-info">
+          <div class="product-brand">CATIT</div>
+          <div class="product-name">캐팃 플레이 피라냐 전동 장난감</div>
+          <div class="product-price">
+            <span class="price-pct">28%</span>
+            <span class="price-discount">19,800원</span>
+            <span class="price-original">27,500원</span>
+          </div>
+          <div class="product-rating"><span>★★★★★</span> (89)</div>
+        </div>
+      </div>
+      <!-- Product 4 -->
+      <div class="product-card">
+        <div class="product-img">
+          🏖️
+          <span class="badge-hot">HOT -50%</span>
+          <button class="wish-btn">🤍</button>
+        </div>
+        <div class="product-info">
+          <div class="product-brand">PETIOLE</div>
+          <div class="product-name">페티올 두부 모래 카페라떼향 6L × 3개</div>
+          <div class="product-price">
+            <span class="price-pct">50%</span>
+            <span class="price-discount">14,500원</span>
+            <span class="price-original">29,000원</span>
+          </div>
+          <div class="product-rating"><span>★★★★☆</span> (312)</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── NEW PRODUCTS ── -->
+<section class="section bg-gray" id="new">
+  <div class="section-inner">
+    <div class="section-header">
+      <h2 class="section-title">신상품</h2>
+      <button class="more-btn">더보기 ›</button>
+    </div>
+    <div class="product-grid">
+      <div class="product-card">
+        <div class="product-img">
+          🛏️
+          <span class="badge-new">NEW</span>
+          <button class="wish-btn">🤍</button>
+        </div>
+        <div class="product-info">
+          <div class="product-brand">COZY CATS</div>
+          <div class="product-name">코지캣츠 도넛 쿠션 고양이 침대 L사이즈</div>
+          <div class="product-price">
+            <span class="price-discount">38,000원</span>
+          </div>
+          <div class="product-rating"><span>★★★★★</span> (17)</div>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="product-img">
+          💊
+          <span class="badge-new">NEW</span>
+          <button class="wish-btn">🤍</button>
+        </div>
+        <div class="product-info">
+          <div class="product-brand">NUTRI PAWS</div>
+          <div class="product-name">뉴트리포스 오메가3 고양이 영양제 60정</div>
+          <div class="product-price">
+            <span class="price-discount">24,500원</span>
+          </div>
+          <div class="product-rating"><span>★★★★☆</span> (8)</div>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="product-img">
+          🎀
+          <span class="badge-new">NEW</span>
+          <button class="wish-btn">🤍</button>
+        </div>
+        <div class="product-info">
+          <div class="product-brand">MEOW STYLE</div>
+          <div class="product-name">미오스타일 봄 신상 고양이 드레스 S/M/L</div>
+          <div class="product-price">
+            <span class="price-discount">16,900원</span>
+          </div>
+          <div class="product-rating"><span>★★★★★</span> (23)</div>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="product-img">
+          🏠
+          <span class="badge-new">NEW</span>
+          <button class="wish-btn">🤍</button>
+        </div>
+        <div class="product-info">
+          <div class="product-brand">CAT HOUSE</div>
+          <div class="product-name">캣하우스 프리미엄 원목 캣타워 3단</div>
+          <div class="product-price">
+            <span class="price-discount">89,000원</span>
+          </div>
+          <div class="product-rating"><span>★★★★☆</span> (41)</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── 나눔장터 ── -->
+<section class="section" id="sharing">
+  <div class="section-inner">
+    <div class="section-header">
+      <h2 class="section-title">나눔장터</h2>
+      <button class="more-btn">더보기 ›</button>
+    </div>
+    <div class="sharing-grid">
+      <!-- Left: grid cards -->
+      <div style="display:flex;flex-direction:column;gap:14px;">
+        <div class="sharing-item">
+          <div class="sharing-thumb">🐱</div>
+          <div class="sharing-content">
+            <span class="sharing-badge free">나눔</span>
+            <div class="sharing-title">로얄캐닌 어덜트 사료 500g 나눔합니다 (미개봉)</div>
+            <div class="sharing-meta">
+              <span class="sharing-location">📍 서울 마포구</span>
+              <span>23분 전</span>
+            </div>
+          </div>
+        </div>
+        <div class="sharing-item">
+          <div class="sharing-thumb">🛏️</div>
+          <div class="sharing-content">
+            <span class="sharing-badge used">중고거래</span>
+            <div class="sharing-title">캣타워 2단 깨끗하게 사용했어요 / 직거래만</div>
+            <div class="sharing-meta">
+              <span class="sharing-location">📍 서울 강남구</span>
+              <span>1시간 전</span>
+            </div>
+          </div>
+        </div>
+        <div class="sharing-item">
+          <div class="sharing-thumb">🎀</div>
+          <div class="sharing-content">
+            <span class="sharing-badge exchange">교환</span>
+            <div class="sharing-title">고양이 옷 S사이즈 교환 원해요 — 현재 M보유</div>
+            <div class="sharing-meta">
+              <span class="sharing-location">📍 인천 부평구</span>
+              <span>3시간 전</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Right: list -->
+      <div style="background:#fff;border:1px solid var(--gray200);border-radius:12px;padding:14px 20px;">
+        <div class="sharing-list">
+          <div class="sharing-list-item">
+            <span class="sharing-list-num">1</span>
+            <div class="sharing-list-thumb">🍖</div>
+            <div class="sharing-list-content">
+              <div class="sharing-list-title">오리젠 고양이 사료 1.8kg 반 정도 남음 — 나눔</div>
+              <div class="sharing-list-meta"><span>📍 서울 은평구</span><span>방금 전</span></div>
+            </div>
+            <div class="sharing-list-price">나눔</div>
+          </div>
+          <div class="sharing-list-item">
+            <span class="sharing-list-num">2</span>
+            <div class="sharing-list-thumb">🪀</div>
+            <div class="sharing-list-content">
+              <div class="sharing-list-title">낚시대 장난감 3개 일괄 판매합니다</div>
+              <div class="sharing-list-meta"><span>📍 경기 성남시</span><span>45분 전</span></div>
+            </div>
+            <div class="sharing-list-price">5,000원</div>
+          </div>
+          <div class="sharing-list-item">
+            <span class="sharing-list-num">3</span>
+            <div class="sharing-list-thumb">🚽</div>
+            <div class="sharing-list-content">
+              <div class="sharing-list-title">카카오프렌즈 자동 화장실 반값 양도</div>
+              <div class="sharing-list-meta"><span>📍 서울 송파구</span><span>2시간 전</span></div>
+            </div>
+            <div class="sharing-list-price">75,000원</div>
+          </div>
+          <div class="sharing-list-item">
+            <span class="sharing-list-num">4</span>
+            <div class="sharing-list-thumb">🐟</div>
+            <div class="sharing-list-content">
+              <div class="sharing-list-title">이나바 챠오 간식 40개입 미개봉 판매</div>
+              <div class="sharing-list-meta"><span>📍 부산 해운대구</span><span>4시간 전</span></div>
+            </div>
+            <div class="sharing-list-price">12,000원</div>
+          </div>
+          <div class="sharing-list-item">
+            <span class="sharing-list-num">5</span>
+            <div class="sharing-list-thumb">💊</div>
+            <div class="sharing-list-content">
+              <div class="sharing-list-title">고양이 영양제 3종 한번에 나눔합니다</div>
+              <div class="sharing-list-meta"><span>📍 대구 수성구</span><span>어제</span></div>
+            </div>
+            <div class="sharing-list-price">나눔</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── 정보 커뮤니티 ── -->
+<section class="section bg-gray" id="community">
+  <div class="section-inner">
+    <div class="section-header">
+      <h2 class="section-title">정보 커뮤니티</h2>
+      <button class="more-btn">더보기 ›</button>
+    </div>
+    <div class="info-grid">
+      <div class="info-card">
+        <div class="info-card-img">
+          🐱
+          <span class="info-tag">건강정보</span>
+        </div>
+        <div class="info-body">
+          <div class="info-title">고양이가 밥을 갑자기 안 먹는 5가지 이유와 해결법</div>
+          <div class="info-desc">식욕 부진은 고양이 건강 이상의 신호일 수 있습니다. 수의사가 알려주는 원인과 대처법을 확인해보세요.</div>
+          <div class="info-footer"><span>👁 2,341</span><span>💬 48</span><span>2일 전</span></div>
+        </div>
+      </div>
+      <div class="info-card">
+        <div class="info-card-img">
+          😸
+          <span class="info-tag">케어팁</span>
+        </div>
+        <div class="info-body">
+          <div class="info-title">집사 초보를 위한 고양이 그루밍 완벽 가이드</div>
+          <div class="info-desc">털 관리부터 발톱 정리까지, 집에서 쉽게 따라할 수 있는 그루밍 방법을 단계별로 정리했습니다.</div>
+          <div class="info-footer"><span>👁 1,870</span><span>💬 31</span><span>4일 전</span></div>
+        </div>
+      </div>
+      <div class="info-card">
+        <div class="info-card-img">
+          🏡
+          <span class="info-tag">환경구성</span>
+        </div>
+        <div class="info-body">
+          <div class="info-title">고양이를 위한 실내 환경 구성 — 스트레스 줄이는 배치법</div>
+          <div class="info-desc">캣타워, 스크래처, 수면 공간의 최적 배치로 고양이의 행복도를 높이는 인테리어 팁을 소개합니다.</div>
+          <div class="info-footer"><span>👁 3,120</span><span>💬 67</span><span>1주 전</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div>
+        <div class="footer-logo">CAT<span>HOME</span></div>
+        <div class="footer-tagline">고양이와 함께하는 모든 순간,<br/>CATHOME이 함께합니다.</div>
+        <div class="footer-sns">
+          <button class="sns-btn">f</button>
+          <button class="sns-btn">in</button>
+          <button class="sns-btn">▶</button>
+          <button class="sns-btn">📷</button>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>쇼핑 안내</h4>
+        <ul>
+          <li><a href="#">주문/배송 조회</a></li>
+          <li><a href="#">교환/반품 안내</a></li>
+          <li><a href="#">결제 수단 안내</a></li>
+          <li><a href="#">포인트/쿠폰</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>고객센터</h4>
+        <ul>
+          <li><a href="#">공지사항</a></li>
+          <li><a href="#">자주 묻는 질문</a></li>
+          <li><a href="#">1:1 문의</a></li>
+          <li><a href="#">이벤트</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>회사 정보</h4>
+        <ul>
+          <li><a href="#">회사소개</a></li>
+          <li><a href="#">이용약관</a></li>
+          <li><a href="#">개인정보처리방침</a></li>
+          <li><a href="#">입점/제휴 문의</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div>
+        <div style="margin-bottom:6px;">주식회사 캣홈 | 대표: 홍길동 | 사업자등록번호: 123-45-67890</div>
+        <div>통신판매업신고: 2024-서울마포-0001 | 주소: 서울특별시 마포구 고양이로 10, 4층</div>
+        <div style="margin-top:4px;">고객센터: 1588-0000 (평일 09:00~18:00) | help@cathome.kr</div>
+      </div>
+      <div class="footer-bottom-links">
+        <a href="#">이용약관</a>
+        <a href="#" style="font-weight:700;color:#888;">개인정보처리방침</a>
+        <a href="#">사업자정보 확인</a>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:24px;font-size:11px;color:#444;">
+      © 2024 CATHOME. All rights reserved.
+    </div>
+  </div>
+</footer>
+
+<!-- ── FLOATING BUTTONS ── -->
+<div class="float-btns">
+  <button class="float-btn cart" title="장바구니">🛒</button>
+  <button class="float-btn top" title="맨 위로" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+</div>
+
+<script>
+  /* ── HERO SLIDER ── */
+  let currentSlide = 0;
+  const totalSlides = 3;
+  const slider = document.getElementById('heroSlider');
+  const dots = document.querySelectorAll('#heroDots span');
+
+  function updateSlider() {
+    slider.style.transform = `translateX(-${currentSlide * 100}%)`;
+    dots.forEach((d, i) => d.classList.toggle('active', i === currentSlide));
+  }
+
+  function slideHero(dir) {
+    currentSlide = (currentSlide + dir + totalSlides) % totalSlides;
+    updateSlider();
+  }
+
+  function goSlide(idx) {
+    currentSlide = idx;
+    updateSlider();
+  }
+
+  setInterval(() => slideHero(1), 5000);
+
+  /* ── COUNTDOWN TIMER ── */
+  function updateTimer() {
+    const now = new Date();
+    const end = new Date(now);
+    end.setHours(23, 59, 59, 0);
+    const diff = end - now;
+    const h = Math.floor(diff / 3600000);
+    const m = Math.floor((diff % 3600000) / 60000);
+    const s = Math.floor((diff % 60000) / 1000);
+    document.getElementById('tHour').textContent = String(h).padStart(2,'0');
+    document.getElementById('tMin').textContent  = String(m).padStart(2,'0');
+    document.getElementById('tSec').textContent  = String(s).padStart(2,'0');
+  }
+  updateTimer();
+  setInterval(updateTimer, 1000);
+</script>
+</body>
+</html>
